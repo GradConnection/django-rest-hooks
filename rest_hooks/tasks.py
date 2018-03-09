@@ -1,5 +1,6 @@
 import requests
 import json
+import logging
 
 from celery.task import Task
 
@@ -31,4 +32,6 @@ class DeliverHook(Task):
 def deliver_hook_wrapper(target, payload, instance=None, hook=None, **kwargs):
     if hook:
         kwargs['hook_id'] = hook.id
+    logger = logging.getLogger('gradcon.models.entity')
+    logger.info("i am inside taks.py in django-rest-hooks
     return DeliverHook.delay(target, payload, **kwargs)
